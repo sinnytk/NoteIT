@@ -1,0 +1,10 @@
+D:\University\Semester 4\Operating Systems\Project\WindowsFormsApp1\WindowsFormsApp1\bin\Debug\NoteIT.exe.config
+D:\University\Semester 4\Operating Systems\Project\WindowsFormsApp1\WindowsFormsApp1\bin\Debug\NoteIT.exe
+D:\University\Semester 4\Operating Systems\Project\WindowsFormsApp1\WindowsFormsApp1\bin\Debug\NoteIT.pdb
+D:\University\Semester 4\Operating Systems\Project\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\NoteIT.csprojAssemblyReference.cache
+D:\University\Semester 4\Operating Systems\Project\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.Window.resources
+D:\University\Semester 4\Operating Systems\Project\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\NoteIT.Properties.Resources.resources
+D:\University\Semester 4\Operating Systems\Project\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\NoteIT.csproj.GenerateResource.cache
+D:\University\Semester 4\Operating Systems\Project\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\NoteIT.csproj.CoreCompileInputs.cache
+D:\University\Semester 4\Operating Systems\Project\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\NoteIT.exe
+D:\University\Semester 4\Operating Systems\Project\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\NoteIT.pdb
