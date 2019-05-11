@@ -8,3 +8,4 @@ D:\University\Semester 4\Operating Systems\Project\WindowsFormsApp1\WindowsForms
 D:\University\Semester 4\Operating Systems\Project\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\NoteIT.csproj.CoreCompileInputs.cache
 D:\University\Semester 4\Operating Systems\Project\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\NoteIT.exe
 D:\University\Semester 4\Operating Systems\Project\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\NoteIT.pdb
+D:\University\Semester 4\Operating Systems\Project\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\NoteIT.Subform.resources

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NoteIT;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -16,6 +17,7 @@ namespace WindowsFormsApp1
         private Point lastLocation;
         public Window()
         {
+            
             InitializeComponent();
         }
 
@@ -41,6 +43,11 @@ namespace WindowsFormsApp1
         private void close_button_Click(object sender, EventArgs e)
         {
             this.Visible = false;
+        }
+
+        private void Window_Load(object sender, EventArgs e)
+        {
+            Subform form2 = new Subform();
         }
     }
 }

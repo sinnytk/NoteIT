@@ -108,6 +108,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Window";
             this.ShowIcon = false;
+            this.Load += new System.EventHandler(this.Window_Load);
             this.ControlBar.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.close_button)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
